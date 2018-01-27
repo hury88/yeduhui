@@ -23,13 +23,13 @@ return [
         // 数据库连接DSN配置
         'dsn'             => '',
         // 服务器地址
-        'hostname'        => 'localhost',
+        'hostname'        => '192.168.0.99',
         // 数据库名
-        'database'        => 'kw_jwzx',
+        'database'        => 'rer_ydh',
         // 数据库用户名
         'username'        => 'root',
         // 数据库密码
-        'password'        => 'kwzkeys',//134qrfqf1//
+        'password'        => '123',
         // 数据库连接端口
         'hostport'        => '3306',
         // 数据库连接参数
@@ -37,7 +37,7 @@ return [
         // 数据库编码默认采用utf8
         'charset'         => 'utf8',
         // 数据库表前缀
-        'prefix'          => 'kw_',
+        'prefix'          => 'rer_',
         // 数据库调试模式
         'debug'           => true,
         // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)
@@ -167,7 +167,7 @@ return [
         // SESSION_ID的提交变量,解决flash上传跨域
         'var_session_id' => '',
         // SESSION 前缀
-        'prefix'         => 'hr',
+        'prefix'         => 'rer',
         // 驱动方式 支持redis memcache memcached
         'type'           => '',
         // 是否自动开启 SESSION
@@ -181,7 +181,7 @@ return [
     // +----------------------------------------------------------------------
     'cookie'                 => [
         // cookie 名称前缀
-        'prefix'    => 'app_',
+        'prefix'    => 'rer_',
         // cookie 保存时间(15天)
         'expire'    => time() + 1296000,
         // cookie 保存路径

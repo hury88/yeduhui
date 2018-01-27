@@ -61,7 +61,9 @@ require WEB_ROOT.'./include/chkuser.inc.php';
 
               // $counts=get_son_count($ppid);
               $counts=M('news_cats')->where("pid=$ppid and isstate=1")->count();
-              if ($counts>0) $linkurl="javascript:void(0);"; else $linkurl=$linkurl;
+              // if ($counts>0) $linkurl="javascript:void(0);"; else $linkurl=$linkurl;
+              //有三级的二级可点击
+              if ($counts>0) $linkurl=$linkurl; else $linkurl=$linkurl;
               ?>
               <li ><a data-index="0" class="menua" href="<?php echo $linkurl?>" title="<?php echo $bd2['catname'],'-',$bd2['pid'],':',$bd2['id'] ?>" target="righthtml"><?php echo cutstr($bd2['catname'],20,'')?></a></li>
 

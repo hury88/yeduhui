@@ -62,7 +62,7 @@ $opt = new Output;
 							->input('关于我们配文', 'introduce')
 							->img('关于我们配图', 'img1', '1200*165')
 							->endifs()
-							// ->editor('信息内容')
+							->editor('信息内容')
 						;
 							define('DEL_TIME_SORT',1);include('js/foot');
 						?>

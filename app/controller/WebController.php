@@ -24,7 +24,6 @@ class WebController extends Controller
 	public function index()
 	{
 		global $pid,$ty,$showtype;
-		echo $showtype;
 		$lister = new Lister();
 		switch ($pid) {
 			case 1: // 我要装修
@@ -41,7 +40,10 @@ class WebController extends Controller
 				$data = $lister->s2('img1,img2,img3,content');
 				return $this->view('about', compact('data', 'news_data'));
 				break;
-			case 3: // 精微案例
+			case 3: // 服务
+				$data = $lister->s2('content');
+			    return $this->view('service', compact('data'));
+			case 100: // 服务
 				// $lister->s1(1000);
 				$field = 'id,img1,img2,title,content';
 				$cate = I('get.cate', 0, 'intval');
@@ -57,9 +59,10 @@ class WebController extends Controller
 				$paging = $lister->paging;
 				return $this->view('product', compact('display', 'paging'));
 				break;
-			case 5: // 精微团队
-				return $this->view('team');
-				break;
+			case 5: // about
+				// $news_data = v_data(17,19,'id,img1,title,content,sendtime');
+				$data = $lister->s2('content');
+				return $this->view('about', compact('data'));
 			case 6: // VIP订制
 				return $this->view('vip');
 				break;

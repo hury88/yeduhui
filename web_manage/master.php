@@ -49,7 +49,8 @@ $opt = new Output;//输出流  输出表单元素
             <input type="hidden" name="tty" value="<?=$tty?>" />
             <!-- <b>显示</b><input style="width:50px;" name="psize" type="text" class="dfinput" value="<?=$psize?>"/>条 -->
             <!-- <b>编号</b><input name="id" type="text" class="dfinput" value="<?=$id?>"/> -->
-        <?php if ($ty==8): ?>
+
+        <?php /*<?php if ($ty==8): ?>
             <?php
                 $d2 = M('news')->where('pid=1 and ty=23')->order('disorder desc, isgood desc, id asc')->getField('id,title');Output::select2($d2,'装修','istop2');
              ?>
@@ -63,7 +64,7 @@ $opt = new Output;//输出流  输出表单元素
             <?php
                 $d2 = M('news')->where('pid=4 and ty=27')->order('disorder desc, isgood desc, id asc')->getField('id,title');Output::select2($d2,'品牌','istop2');
              ?>
-        <?php endif ?>
+        <?php endif ?>*/ ?>
         关键字<input name="title" type="text" class="dfinput" value="<?=$title?>"/>
         <input name="search" type="submit" class="btn" value="搜索"/></td>
     </form>
@@ -99,7 +100,7 @@ $opt = new Output;//输出流  输出表单元素
                 $opt->td('图|width="24px"', '名称');
                 break;
             case 10: # 产品分类
-                    $opt->td('分类');
+                    $opt->td('城市', '区域', '商圈');
                 break;
             case 11: # 图文列表
                 $opt->td('图|width="24px"', '名称');
@@ -161,6 +162,9 @@ $opt = new Output;//输出流  输出表单元素
         <!-- <a href="pic.php?ti=<?=$id?>&cid=5">户型介绍(<?//=M('pic')->where("ti=$id and cid=5 and isstate=1")->count()?>条)</a> -->
         <?php /*＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞*/elseif ($showtype==10):/*＜＞＜＞产品分类＜＞＜＞*/?>
         <td><?=$title?></td>
+        <td><a href="link.php?showtype=10&istop=<?php echo $id ?>">下属区域(<?=M('news')->where('istop='.$id)->count()?>)</a></td>
+        <td><a href="link.php?showtype=10&istop2=<?php echo $id ?>">下属商圈(<?=M('news')->where('istop2='.$id)->count()?>)</a></td>
+
 <!-- <td><span data-content="<?=$introduce?>" class="lookinfo layui-btn layui-btn-primary layer-demolist">查看简介</span></td> -->
 <?php /*＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞*/elseif ($showtype==11):/*＜＞＜＞图文列表＜＞＜＞*/?>
         <td><?=$img1?></td>

@@ -1,0 +1,292 @@
+﻿@charset "utf-8";
+
+@import url(style.css);
+
+/*top骞垮憡*/
+.Advertisement {
+	width: 100%;
+	height: 80px;
+	float: left;
+	margin: 0px auto;
+	margin-top: 49px;
+	text-align: center;
+	background-image: url(../images/advertisement.png);
+	background-position: center center;
+}
+/*鍐呭寮�*/
+.FirmDetail_content {
+	width: 1256px;
+	margin: 0 auto;
+}
+
+.FirmDetail_center {
+	width: 1004px;
+	height: auto;
+	float: left;
+}
+/*宸﹁竟寮�*/
+.FirmDetail_left {
+	width: 710px;
+	height: auto;
+	float: left;
+}
+/*鍟嗗鐓х墖*/
+.FirmDetail_path {
+	float: left;
+	margin: 10px 0 10px 0;
+}
+
+.jiameng_left_img {
+	width: 100%;
+	height:60px;
+	line-height:45px;
+	float:left;
+	font-size:14px;
+	font-weight:bold;
+	padding-left:40px;
+	background: url(../images/tb05.gif) no-repeat;
+}
+
+.jiameng_left_part {
+	float: left;
+	width: 100%;
+	background-color: #E4F7F9;
+	margin-top: 10px;
+	line-height: 24px;
+	padding: 10px;
+}
+
+.jiameng_left_part h2 {
+	font-size: 16px;
+	color: #32aeb6;
+	line-height: 30px;
+	font-weight:bold;
+}
+
+.jiameng_left_parts img {
+	vertical-align: -10px;
+}
+
+.jiameng_left_parts p {
+	background-color: #32aeb6 ;
+	width: 120px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	text-align: center;
+	border-radius:5px;
+	color: #fff;
+}
+
+.jiameng_left_parts em {
+	width: 25px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	text-align: center;
+}
+
+.jiameng_leftliucheng {
+	width: 100%;
+	float: left;
+	margin: 10px 0;
+}
+
+.jiameng_leftliucheng img {
+	vertical-align: 0px;
+}
+
+.jm_topimg {
+}
+
+/*left缁撴潫*/
+/*鍙宠竟寮�*/
+.FirmDetail_right {
+	width: 264px;
+	height: auto;
+	float: right;
+}
+
+.jiameng_right_part {
+	float: left;
+	width: 243px;
+	border: 1px #ccc solid;
+	margin-top: 10px;
+	line-height: 24px;
+	padding: 10px;
+}
+
+.jiameng_right_part h2 {
+	font-size: 16px;
+	color: #32aeb6;
+	line-height: 30px;
+	font-weight:bold
+}
+
+.jiameng_right_parts {
+	line-height: 20px;
+	letter-spacing: 1px;
+}
+
+.jiameng_right_parts img {
+	vertical-align: -10px;
+}
+
+.jiameng_right_parts p {
+	background-color: #F25F37;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	text-align: center;
+	color: #fff;
+}
+
+.jiameng_right_parts em {
+	float: left;
+	width:100%;
+	color: #32aeb6;
+	font-size: 14px;
+	font-weight: bold;
+	margin-top: 30px
+}
+
+.FirmDetail_Book {
+	width: 264px;
+	height: auto;
+	float: left;
+	line-height: 30px;
+}
+
+/*娴忚*/
+.FirmDetail_Browse {
+	width: 348px;
+	height: 180px;
+	float: left;
+	margin-top: 5px;
+	padding: 10px;
+	border: 1px #ccc solid;
+	margin: 10px 0 0 14px;
+}
+
+.FirmDetail_Browse .Delete_browsing {
+	width: 348px;
+	height: 37px;
+	padding-top: 3px;
+	line-height: 37px;
+	border-top: 1px #ccc dotted;
+}
+
+.FirmDetail_Browse .Delete_browsing span img {
+	width: 42px;
+	height: 35px;
+	float: left;
+}
+
+/*加盟申请表 开始*/
+.join_form {
+    margin: 0px auto;
+    color: #555;
+    padding: 50px 40px;
+}
+
+.join_form h2 {
+    font: 24px Arial,"Microsoft Yahei",Simsun,sans-serif;
+    margin-bottom: 5px;
+}
+
+.join_form dl {
+    padding: 10px 0px;
+	clear:both;
+}
+
+.join_form dl dt {
+    color: #555;
+    float: left;
+    line-height: 30px;
+    width: 80px;
+    font-size: 14px;
+    margin-right: 5px;
+    text-align: left;
+}
+
+.join_form dl dd {
+    margin-left: 80px;
+    line-height: 36px;
+    color: #999;
+}
+
+.join_form dl dd .text {
+    color: #777;
+    border: 1px solid #BBB;
+    overflow: hidden;
+    vertical-align: top;
+    padding: 7px 0px 7px 5px;
+    width: 210px;
+}
+
+.join_form dl dd .text2 {
+    height: 90px;
+    width: 440px;
+}
+
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.join_form dl dd .t1 {
+    width: 97px;
+    margin-right: 8px;
+}
+
+.join_form dl dd .hq {
+    width: 60px;
+    color: #555;
+    text-decoration: none;
+    background: none repeat scroll 0% 0% #F6F6F6;
+    border: 1px solid #CCC;
+    display: inline-block;
+    line-height: 26px;
+    padding: 0px 10px;
+    margin-left: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+.join_form dl dd .ts {
+    line-height: 16px;
+}
+
+.join_form dl dd .ts i {
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
+    font-size: 0px;
+    overflow: hidden;
+    width: 18px;
+    height: 16px;
+    margin-right: 3px;
+    background: url('../images/h_join4.png') repeat scroll -37px 0px transparent;
+}
+
+.join_form .all_ts {
+    margin-bottom: 30px;
+}
+
+.red {
+    color: #F35F27;
+}
+
+.join_form dl dd .btn {
+    display: inline-block;
+    background: none repeat scroll 0% 0% #F35F27;
+    font: 16px/26px "Microsoft Yahei",simhei,sans-serif;
+    text-align: center;
+    border: 0px none;
+    color: #FFF;
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+}
+/*加盟申请表 结束*/

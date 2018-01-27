@@ -25,9 +25,11 @@ $opt = new Output;//输出流  输出表单元素
 		<?php Style::weizhi() ?>
 		<div class="right clr">
 			<div class="zhengwen clr">
+				<?php if (v_news_cats($zid,'catname')): ?>
 				<div class="xuanhuan clr">
 					<a href="javascript:void()" class="zai" style="margin-left:30px;"><?=v_news_cats($zid,'catname')?></a>
 				</div>
+				<?php endif ?>
 
 				<div class="miaoshu clr">
 					<div id="tab1" class="tabson">
@@ -82,7 +84,7 @@ $opt = new Output;//输出流  输出表单元素
 									;break;
 								case 10://＜＞＜＞分类＜＞＜＞
 									$opt
-										->cache()->input('分类','title')->flur();
+										->cache()->input('名称','title')->flur();
 							}
 
 							include('js/foot')

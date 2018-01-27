@@ -63,6 +63,18 @@ function vv($pid,$ty,$tpl,$limit=0)
 	return $list;
 }
 
+function vv_data($data,$tpl)
+{
+	list($field) = App\Helpers\V::parse($tpl);
+
+	$list = '';
+	foreach ($data as $key => $value) {
+		extract($value);
+		eval(" \$list .= '$tpl';");
+	}
+	return $list;
+}
+
 function vvpro($set,$tpl,$limit=0)
 {
 	$pid=$ty=$tty = null;
@@ -127,7 +139,7 @@ function pc_lefts()
 		return '/web/'.$detail.'/id/'.$id;
 	}//传入pid=>list.php?pid=n
 
-	function pc_bread($sp = ' > ')
+	function pc_bread($sp = ' &nbsp;&nbsp;&nbsp;&nbsp;> ')
 	{//面包屑导航
 		global $q,$tty,$ty,$pid,$id_title,$id,$pid_catname,$ty_catname,$ty_catname2;
 		  //面包屑导航
@@ -161,11 +173,11 @@ function pc_lefts()
 			if ($count==$key) {
 				$breadTemp .= '<span>'.$value[0].'</span>';
 			} else {
-				$breadTemp .= sprintf('<a href="%s">%s</a>'.$sp, $value[1], $value[0]);
+				$breadTemp .= sprintf('<a href="%s" class="text-line">%s</a>'.$sp, $value[1], $value[0]);
 			}
 		}
 		unset($url,$catname,$bread);
-		return $breadTemp;
+		return '<p class="pt15 f14">'.$breadTemp.'</p>';
 	}
 
 } //END WEB

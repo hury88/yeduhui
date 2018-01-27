@@ -1,5 +1,6 @@
 <?php
 namespace Admin;
+use  Core\response\Redirect as Redirect;
 use Core\Page as Page;
 require './include/common.inc.php';
 define('TABLE_NEWS',1);
@@ -18,13 +19,40 @@ $showname = 'link';
 //条件
 $map = array('pid'=>$pid,'ty'=>$ty,'tty'=>$tty);
 //搜索
-$$showtype =  I('get.$showtype',0,'intval');if(!empty($$showtype))$map['$showtype'] = $$showtype;
+$showtype =  I('get.showtype',0,'intval');if(!empty($showtype))$map['showtype'] = $showtype;
 $istop =  I('get.istop',0,'intval');if(!empty($istop))$map['istop'] = $istop;
 $istop2 =  I('get.istop2',0,'intval');if(!empty($istop2))$map['istop2'] = $istop2;
 {
     // $title   =   I('get.title','','trim');
     // if ($title) $map['title'] = array('like','%'.$title.'%');
 }
+
+if (isset($_POST['importField'])) {
+    $yiji = $_POST['importField'];
+    if ( $yiji) {
+        $yiji_s = explode("\r\n", $yiji);
+        foreach ($yiji_s as $key => $value) {
+            if (!strpos($value, ' ')) {
+                $value .= ' ';
+            }
+            list($v1,$v2) = explode(' ',$value,2);
+            // dump($value);
+            M($table)->insert(array(
+                'pid' => 0,
+                'ty' => 0,
+                'title' => $v1,
+                'source' => $v1,
+                'istop' => $istop,
+                'istop2' => $istop2,
+            ));
+        }
+        Redirect::JsSuccess('导入OK!', request()->url());
+    }
+    Redirect::JsError('栏目不能为空');
+    die;
+}
+
+
 ####分页配置
 $psize   =   I('get.psize',30,'intval');
 $pageConfig = array(
@@ -68,6 +96,11 @@ list($data,$pagestr) = Page::paging($pageConfig);
 </form>
 
 <div class="zhengwen clr">
+    <br>
+    <form style="display:none;" id="imports" method="post">
+        <textarea name="importField" cols="30" rows="10"></textarea>
+        <input type="submit" value="批量导入时一行一个">
+    </form>
     <form name="formlist" method="post" action="include/action.php">
 
       <div class="zhixin clr">
@@ -77,9 +110,15 @@ list($data,$pagestr) = Page::paging($pageConfig);
         <a href="?<?=queryString()?>" class="zhixin_a2 fl"></a><!-- 刷新  -->
         <a href="<?=getUrl(queryString(true),$showname.'_pro')?>" target="righthtml" class="zhixin_a3 fl"></a><!-- 添加  -->
         <input type="button" class="zhixin_a4 fl" id="del"/><!-- 删除  -->
+        <?php Style::moveback() ?>
         <?php if (false): ?>
             <a style="background:none;border:1px solid;line-height:28px;text-align:center" href="content.php?<?=queryString()?>" class="fl">编辑详情</a>
         <?php endif ?>
+        <?php
+            if ($showtype==10) {
+               echo '<a style="background:none;cursor:pointer;line-height:29px;text-align:center" onclick="$(\'#imports\').toggle()" class="fl">批量加入'.($istop ? '区域' : '商圈 ').'</a>';
+            }
+         ?>
     </div>
     <div class="neirong clr">
        <table cellpadding="0" cellspacing="0" class="table clr">
@@ -107,8 +146,8 @@ list($data,$pagestr) = Page::paging($pageConfig);
             <!-- <td>下载次数</td> -->
             <td>类型(<b style="color:red">点击切换</b>)</td>
             <td>下载</td>
-<?php /*＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞*/elseif ($showtype==10):/*＜＞＜＞文件下载＜＞＜＞*/?>
-            <td>分类</td>
+<?php /*＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞*/elseif ($showtype==10):/*＜＞＜＞分类＜＞＜＞*/?>
+            <td>名称</td>
 <?php /*＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞*/endif?>
             <td width="10%">发布时间</td>
         </tr>

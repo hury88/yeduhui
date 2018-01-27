@@ -1,6 +1,39 @@
 <?php
 if (! defined('WEB')) return;
 
+function about_nav($pid)
+{
+	$on = ' on';
+
+	$level1 = M('news_cats')->field('catname,id')->where('pid = '.$pid)->order('disorder desc,id asc')->select();
+
+	$nav = '';
+
+	foreach ($level1 as $row1) {
+		$catname1 = $row1['catname'];$ty = $row1['id'];
+		$u1 = u('web/index', ['pid' => $pid, 'ty' => $ty]);
+		$cur = $pid == $ty ? $on : '';
+
+		#查询二级
+		$nav2 = '';
+
+		$level2 = M('news_cats')->field('id,catname')->where('pid<>0 and pid='.$ty.' and isstate=1')->order('disorder desc,id asc')->select();
+		foreach ($level2 as $row2) {
+			$catname2 = $row2['catname'];$tty = $row2['id'];
+			$u2 = u('web/index', ['pid' => $pid, 'ty' => $ty, 'tty' => $tty]);
+			$nav2 .= '<div class="ml30"><a title="'.$catname2.'" href="'.$u2.'">'.$catname2.'</a></div>';
+		}
+
+$nav .= <<<NAV
+<li><a href="$u1" title="$catname1" class="fwb">$catname1</a>$nav2</li>
+NAV;
+	}
+
+	// $index = '<li class="nav_li'.(IS_INDEX?$on:'').'"> <a href="/" class="nav_li_a">首页</a></li>';
+
+	unset($pid,$ty,$OnClass,$on,$nav2,$row1,$catname1,$u1,$id1,$row2,$catname2,$u2,$id2,$cur);
+	return $nav;
+}
 
 
 function erji_nav()

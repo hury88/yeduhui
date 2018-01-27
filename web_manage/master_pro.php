@@ -142,7 +142,7 @@ if (isset($_GET['action']) && $_GET['action']=='delImg') {
 			break;
 		case 10://＜＞＜＞产品分类＜＞＜＞
 			$opt
-				->cache()->input('名称','title')->flur()
+				->cache()->input('城市','title')->flur()
 				// ->img('配图','img1')
 			;
 			break;

@@ -4,6 +4,12 @@ use Core\Request;
 use Core\Model;
 //这里放全局的函数 by hury
 
+function _debug()
+{
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+}
+
 function m_gWhere($pid,$ty=0){
     $map = array('pid'=>$pid,'ty'=>$ty,'isstate'=>1);
     if ($ty===-1) UNSET($map['ty']); //-1时代表ty不加入条件中

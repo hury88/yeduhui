@@ -25,7 +25,7 @@ $table = 'news';
 
 //SEO友好
 $showtype = 0;
-if($id && $view = \App\helpers\View::dispatch($id, $table)) {
+if($id && $view = \App\helpers\View::dispatch($id, $controller)) {
 
   $pid or $pid = $view->pid;
   $ty = $view->ty;

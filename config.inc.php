@@ -23,13 +23,13 @@ return [
         // 数据库连接DSN配置
         'dsn'             => '',
         // 服务器地址
-        'hostname'        => '192.168.0.99',
+        'hostname'        => '127.0.0.1',//192.168.0.99
         // 数据库名
-        'database'        => 'rer_ydh',
+        'database'        => 'rer_yeduhui',
         // 数据库用户名
         'username'        => 'root',
         // 数据库密码
-        'password'        => '123',
+        'password'        => 'root',
         // 数据库连接端口
         'hostport'        => '3306',
         // 数据库连接参数
@@ -218,6 +218,7 @@ return [
         'is_hot'   => ['不是热销商品','是热销商品', 'is_hot'],
         'is_recommend'   => ['未推荐','已推荐', 'is_recommend'],
         'is_new'   => ['不是新品','是新品', 'is_new'],
+        'star'   => ['经济型','高端型', '豪华型'],
 
         'pageType'   => ['1'=>'文本', '2'=>'视频', '3'=>'外链'],
 

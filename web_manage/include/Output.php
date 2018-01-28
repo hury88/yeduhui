@@ -85,6 +85,14 @@ class Output{
 		return $this;
 	}
 
+	public function elses()
+	{
+	    if(is_bool($this->in_if)) {
+            $this->in_if = !$this->in_if;
+        }
+		return $this;
+	}
+
 	//释放缓存
 	public function endifs()
 	{
@@ -221,7 +229,7 @@ class Output{
 		  <div class="layui-form-item">
 			  <label title="<?php echo $n?>" class="layui-form-label"><?php echo $lm?><b>*</b></label>
 			  <div class="layui-input-block">
-			    <select name="<?php echo $n?>" style="width:80%;height:35px;font-size:15px;">
+			    <select id="<?php echo $n?>" name="<?php echo $n?>" style="width:80%;height:35px;font-size:15px;">
 			    		<option value="0">请选择</option>
 			    	<?php foreach ($d as $k => $v): $sl=$k==$$n?'selected':'' ?>
 			    		<option <?php echo $sl?> value="<?php echo $k?>"><?php echo $v?></option>
@@ -234,7 +242,7 @@ class Output{
 
 	public static function select2($d,$lm,$n){ global $$n; ?>
 			  <label title="<?php echo $n?>"><?php echo $lm?><b>*</b></label>
-			    <select name="<?php echo $n?>" style="height:34px">
+			    <select id="<?php echo $n?>" name="<?php echo $n?>" style="height:34px">
 			    		<option value="0">请选择</option>
 			    	<?php foreach ($d as $k => $v): $sl=$k==$$n?'selected':'' ?>
 			    		<option <?php echo $sl?> value="<?php echo $k?>"><?php echo $v?></option>

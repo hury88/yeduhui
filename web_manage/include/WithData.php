@@ -9,7 +9,7 @@ namespace Admin;
  *public function news_cats() [] news_cats表(超级管理员用的)
  *public function pic()		  []
  *public function usr()		  []
- *public function goods()		  []
+ *public function ktv()		  []
  */
 class WithData
 {
@@ -352,5 +352,81 @@ class WithData
 		$this->logUpdate = '更新商品: '.$fields['goods_name'];
 		return $fields;
 	}
+
+    public function ktv()
+    {
+        $city_id = I('post.city_id',0,'intval');
+        $cate_id = I('post.cate_id',0,'intval');
+
+        $service = isset($_POST['service']) && is_array($_POST['service'])?implode(',',$_POST['service']):'';
+
+        $xiaobao_p1 = I('post.xiao_p1','');
+        $xiaobao_p2 = I('post.xiao_p2','');
+        $xiaobao = [$xiaobao_p1, $xiaobao_p2];
+        $zhongbao = [I('post.zhong_p1',''), I('post.zhong_p2','')];
+        $dabao = [I('post.da_p1',''), I('post.da_p2','')];
+        $fields = array(
+            'pid'				=>		I('pid', 0, 'intval'),
+            'ty'				=>		I('ty' , 0, 'intval'),
+            'tty'				=>		I('tty', 0, 'intval'),
+            'title'				=>		I('post.title','','trim,htmlspecialchars'),
+            'ftitle'			=>		I('post.ftitle','','trim,htmlspecialchars'),
+
+            'content'			=>		I('post.content',''),
+            'content2'       	=>		I('post.content2',''),
+
+            'xiaobao'			=>		implode('|', $xiaobao),
+            'zhongbao'			=>		implode('|', $zhongbao),
+            'dabao'			    =>		implode('|', $dabao),
+
+            'hotline'       	=>		I('post.hotline',''),
+            'ontime'       	    =>		I('post.ontime',''),
+
+            'content3'       	=>		I('post.content3',''),
+            'content4'       	=>		I('post.content4',''),
+            'content5'       	=>		I('post.content5',''),
+            'name'				=>		I('post.name','','trim'),
+            'source'			=>		I('post.source','','trim,htmlspecialchars'),
+            'service'			=>		$service,
+            'introduce'			=>		I('post.introduce','','trim,htmlspecialchars'),
+            'linkurl'			=>		I('post.linkurl','','trim,htmlspecialchars'),
+            'link1'				=>		I('post.link1','','trim,htmlspecialchars'),
+            'link2'				=>		I('post.link2','','trim,htmlspecialchars'),
+            //SEO
+            'seotitle'		    =>		I('post.seotitle','','trim'),
+            'keywords'		    =>		I('post.keywords','','trim'),
+            'description'		=>		I('post.description','','trim'),
+
+            'disorder'      	=>		I('post.disorder',0,'intval'),
+            'hits'      		=>		I('post.hits',1,'intval'),
+            'istop'      	 	=>		I('post.istop',0,'intval'),
+            'istop2'      	 	=>		I('post.istop2',0,'intval'),
+            'star'      	 	=>		I('post.star',0,'intval'),
+            'city_id'      	 	=>		I('post.city_id',0,'intval'),
+            'cate_id'      	 	=>		I('post.cate_id',7,'intval'),
+//            'grade'      	 	=>		I('post.grade',0,'intval'),
+            'price'      	 	=>		I('post.price',0,'intval'),
+            'sendtime'      	=>		I('post.sendtime',0,'strtotime'),
+
+        );
+        if (empty($fields['city_id'])) {
+            ajaxReturn(-1,'请选择属于城市');
+        }
+        if (empty($fields['cate_id'])) {
+            ajaxReturn(-1,'请选择属于地区或商圈');
+        }
+        uppro('img1',$fields,'ajax');
+        uppro('img2',$fields,'ajax');
+        uppro('img3',$fields,'ajax');
+        uppro('img4',$fields,'ajax');
+        uppro('img5',$fields,'ajax');
+        uppro('img6',$fields,'ajax');
+        uppro('file',$fields,'file');
+        // uppro('img5',$fields,'water',$water_path);
+        $this->logInsert = "添加信息: ".$fields['title'];
+        $this->logUpdate = '更新信息: '.$fields['title'];
+        return $fields;
+    }
+
 
 }

@@ -19,14 +19,13 @@ $showname = 'link';
 //条件
 $map = array('pid'=>$pid,'ty'=>$ty,'tty'=>$tty);
 //搜索
-$showtype =  I('get.showtype',0,'intval');if(!empty($showtype))$map['showtype'] = $showtype;
+if(I('get.showtype',0,'intval')){$showtype = I('get.showtype',0,'intval');}
 $istop =  I('get.istop',0,'intval');if(!empty($istop))$map['istop'] = $istop;
 $istop2 =  I('get.istop2',0,'intval');if(!empty($istop2))$map['istop2'] = $istop2;
 {
     // $title   =   I('get.title','','trim');
     // if ($title) $map['title'] = array('like','%'.$title.'%');
 }
-
 if (isset($_POST['importField'])) {
     $yiji = $_POST['importField'];
     if ( $yiji) {

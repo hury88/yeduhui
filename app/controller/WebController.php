@@ -38,7 +38,7 @@ class WebController extends Controller
 			case 2: // 关于精微
 				$news_data = v_data(17,19,'id,img1,title,content,sendtime');
 				$data = $lister->s2('img1,img2,img3,content');
-				return $this->view('about', compact('data', 'news_data'));
+				return $this->view('ktv', compact('data', 'news_data'));
 				break;
 			case 3: // 服务
 				$data = $lister->s2('content');

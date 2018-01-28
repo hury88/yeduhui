@@ -1,52 +1,26 @@
 <?php
 namespace Admin;
-use  Core\response\Redirect as Redirect;
 use Core\Page as Page;
 require './include/common.inc.php';
 define('TABLE_NEWS',1);
 require WEB_ROOT.'./include/chkuser.inc.php';
-$table = 'news';
-$showname = 'master';
+$table = $showname = 'ktv';
 
 //条件
-$map = array('pid'=>$pid,'ty'=>$ty,'tty'=>0);
+$map = array('pid'=>2,'ty'=>10,'tty'=>0);
 
 ###########################筛选开始
 $id    =   I('get.id','','trim');if(!empty($id))$map['id'] = array('like',"%$id%");
 $title =   I('get.title','','trim');if(!empty($title))$map['title'] = array('like',"%$title%");
-$istop =   I('get.istop',0,'intval');if(!empty($istop))$map['istop'] = $istop;
+$city_id =   I('get.city_id',0,'intval');if(!empty($city_id))$map['city_id'] = $city_id;
+$cate_id =   I('get.cate_id',0,'intval');if(!empty($cate_id))$map['cate_id'] = $cate_id;
 $istop2 =  I('get.istop2',0,'intval');if(!empty($istop2))$map['istop2'] = $istop2;
 if(!empty($tty)) $map['tty'] = $tty;
-
-if (isset($_POST['importField'])) {
-    $yiji = $_POST['importField'];
-    if ( $yiji) {
-        $yiji_s = explode("\r\n", $yiji);
-        foreach ($yiji_s as $key => $value) {
-            if (!strpos($value, ' ')) {
-                $value .= ' ';
-            }
-            list($v1,$v2) = explode(' ',trim($value, ' '),2);
-            M($table)->insert(array(
-                'pid' => $pid,
-                'ty' => $ty,
-                'tty' => $tty,
-                'title' => $v1,
-            ));
-        }
-        Redirect::JsSuccess('导入OK!', request()->url());
-    }
-    Redirect::JsError('栏目不能为空');
-    die;
-}
-
 ###########################筛选开始
 ########################分页配置开始
 $psize   =   I('get.psize',30,'intval');
 $order='isgood desc,disorder desc,id desc';
-if ($showtype==10 || in_array($ty, [21,23,25,27])) {
-    $order='isgood desc,disorder desc,id asc';
-}
+
 $pageConfig = array(
     /*条件*/'where' => $map,
     /*排序*/'order' => $order,
@@ -73,11 +47,11 @@ $opt = new Output;//输出流  输出表单元素
             <input type="hidden" name="tty" value="<?=$tty?>" />
             <!-- <b>显示</b><input style="width:50px;" name="psize" type="text" class="dfinput" value="<?=$psize?>"/>条 -->
             <!-- <b>编号</b><input name="id" type="text" class="dfinput" value="<?=$id?>"/> -->
-
+      <?php
+        $d2 = M('news')->where('pid=1 and ty=9')->order('disorder desc, isgood desc, id asc')->getField('id,title');Output::select2($d2,'城市','city_id');
+      ?>
         <?php /*<?php if ($ty==8): ?>
-            <?php
-                $d2 = M('news')->where('pid=1 and ty=23')->order('disorder desc, isgood desc, id asc')->getField('id,title');Output::select2($d2,'装修','istop2');
-             ?>
+
         <?php endif ?>
         <?php if ($ty==10): ?>
             <?php
@@ -93,14 +67,6 @@ $opt = new Output;//输出流  输出表单元素
         <input name="search" type="submit" class="btn" value="搜索"/></td>
     </form>
     <div class="zhengwen clr">
-        <br>
-        <form style="display:none;" id="imports" method="post">
-            <textarea name="importField" cols="30" rows="10"></textarea>
-            <input type="hidden" name="pid" value="<?=$pid?>" />
-            <input type="hidden" name="ty"  value="<?=$ty?>"  />
-            <input type="hidden" name="tty" value="<?=$tty?>" />
-            <input type="submit" value="批量导入时一行一个">
-        </form>
       <div class="zhixin clr">
         <ul class="toolbar">
             <li>&nbsp;<input style="display:none" type="checkbox"><i id="sall" class="alls" onclick="selectAll(this)">&nbsp;</i><label style="cursor:pointer;font-size:9px" onclick="selectAll(document.getElementById('sall'))" for="">全选</label></li></li>
@@ -109,11 +75,6 @@ $opt = new Output;//输出流  输出表单元素
         <a href="<?=getUrl(queryString(true),$showname.'_pro')?>" target="righthtml" class="zhixin_a3 fl"></a><!-- 添加  -->
         <input id="del" type="button" class="zhixin_a4 fl"/><!-- 删除  -->
         <?php Style::moveback() ?>
-      <?php
-      if ($showtype==10) {
-          echo '<a style="background:none;cursor:pointer;line-height:29px;text-align:center" onclick="$(\'#imports\').toggle()" class="fl">批量加入分类</a>';
-      }
-      ?>
         <?php if (false && 5 == $showtype): // || 3 == $pid ?>
         <a style="background:none;border:1px solid;line-height:28px;text-align:center" href="content.php?<?=queryString()?>" class="fl">编辑详情</a>
     <?php endif ?>
@@ -126,26 +87,7 @@ $opt = new Output;//输出流  输出表单元素
         <td width="24px">编号</td> <td width="200px">操作</td>
 
     <?php
-        switch ($showtype) {
-            case 1: # 新闻
-                $opt->td('图|width="24px"', '标题', '来源');
-                break;
-            case 5: # 单条
-                $opt->td('图|width="24px"', '信息标题');
-                break;
-            case 9: # 产品
-                $opt->td('图|width="24px"', '名称');
-                break;
-            case 10: # 产品分类
-                if($ty==9)
-                    $opt->td('城市', '区域', '商圈');
-                else
-                    $opt->td('名称');
-                break;
-            case 11: # 图文列表
-                $opt->td('图|width="24px"', '名称');
-                break;
-        }
+        $opt->td('图|width="24px"', '标题');
         $opt->td('发布时间|width="104px"');
      ?>
 </tr>
@@ -177,10 +119,9 @@ $opt = new Output;//输出流  输出表单元素
             <!-- <a href="<?=$editUrl?>" class="thick edits">编辑</a>| -->
             <a href="javascript:;" data-id="<?=$id?>" data-opt="del" class="thick del">删除</a>
         </td>
-        <?php /*＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞*/if ($showtype==1):/*＜＞＜＞新闻＜＞＜＞*/?>
         <td><?=$img1?></td>
-        <td><?=$title?></td>
-        <td><?=$name?></td>
+        <td><?=$title,' <i style="font-size:12px">'.$ftitle.'</i>'?></td>
+        <?php /*＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞*/if ($showtype==1):/*＜＞＜＞新闻＜＞＜＞*/?>
         <?php /*＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞*/elseif ($showtype==5):/*＜＞＜＞单条＜＞＜＞*/?>
             <td><?=$img1?></td>
             <td>
@@ -200,10 +141,8 @@ $opt = new Output;//输出流  输出表单元素
         <?php if ($ty==11): ?><td><?=isset($d1[$istop]) ? $d1[$istop] : '','&emsp;',isset($d2[$istop2]) ? $d2[$istop2] : '' ?></td><?php endif ?>
         <!-- <td><?=$hits?></td> -->
         <!-- <a href="pic.php?ti=<?=$id?>&cid=5">户型介绍(<?//=M('pic')->where("ti=$id and cid=5 and isstate=1")->count()?>条)</a> -->
-        <?php /*＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞*/elseif ($showtype==10&&$ty<>9):/*＜＞＜＞产品分类＜＞＜＞*/?>
-            <td><?=$title?></td>
         <?php /*＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞＜＞*/elseif ($showtype==10):/*＜＞＜＞产品分类＜＞＜＞*/?>
-            <td><a href="ktv.php?city_id=<?=$id?>"><?=$title?></a></td>
+        <td><?=$title?></td>
         <td><a href="link.php?showtype=10&istop=<?php echo $id ?>">下属区域(<?=M('news')->where('istop='.$id)->count()?>)</a></td>
         <td><a href="link.php?showtype=10&istop2=<?php echo $id ?>">下属商圈(<?=M('news')->where('istop2='.$id)->count()?>)</a></td>
 

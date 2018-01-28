@@ -16,6 +16,7 @@ class Ktv
 				$cityName = GetIpLookup();
 			}
 		}
+
 		$this->initialCity($cityName);
 	}
 
@@ -93,4 +94,9 @@ class Ktv
 
 		unset($res);
 	}
+
+	public function condition($field,$fieldValue,$cate_id,$cate_name)
+    {
+        return '/ktv/index'.($cate_id?"/$cate_name/$cate_id":'').'/'.$field.'/'.($fieldValue ? ($fieldValue==1?2:1):1);
+    }
 }

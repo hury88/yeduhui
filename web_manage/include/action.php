@@ -60,6 +60,9 @@ if(IS_POST){
 			case 'news':
 				$delStatus= deleteNews($ids);
 				break;
+			case 'ktv':
+				$delStatus= deleteKtv($ids);
+				break;
 			case 'order':
 				$delStatus= deleteOrders($ids);
 				break;
@@ -122,6 +125,50 @@ function deleteNews($ids=0,$map=array()){//删除新闻及与他的子级
 	$data = M('news')->where($map)->select();
 	M()->startTrans();
 	if(M('news')->delete($ids)):
+		foreach ($data as $key => $row) {
+			AddLog("删除news内容:".$row['title'],$_SESSION['Admin_UserName']);
+			isset($row['img1']) ? @unlink($path.$row['img1']) : '';
+			isset($row['img2']) ? @unlink($path.$row['img2']) : '';
+			isset($row['img3']) ? @unlink($path.$row['img3']) : '';
+			isset($row['img4']) ? @unlink($path.$row['img4']) : '';
+			isset($row['img5']) ? @unlink($path.$row['img5']) : '';
+			isset($row['img6']) ? @unlink($path.$row['img6']) : '';
+			isset($row['file']) ? @unlink($path.$row['file']) : '';
+			$ids2 = M('pic')->where(array('ti'=>array('in',$ids)))->getField('id',true);
+			if($ids2){
+				// $ids2 = array_merge_values($ids2);
+				$ids2 = implode(',',$ids2);
+				deletePics($ids2);
+			}
+		/*$map2['tty']  = array('in',$ids);
+		if($data2 = M('news')->where($map2)->select()){
+			foreach ($data2 as $key2 => $row2) {
+				M('news')->delete($row2['id']);
+				isset($row2['img1']) ? @unlink($path.$row2['img1']) : '';
+				isset($row2['img2']) ? @unlink($path.$row2['img2']) : '';
+				isset($row2['img3']) ? @unlink($path.$row2['img3']) : '';
+				isset($row2['img4']) ? @unlink($path.$row2['img4']) : '';
+				isset($row2['img5']) ? @unlink($path.$row2['img5']) : '';
+				isset($row2['img6']) ? @unlink($path.$row2['img6']) : '';
+				isset($row2['file']) ? @unlink($path.$row2['file']) : '';
+			}
+		}*/
+	}
+	M()->commit();
+	return true;
+	else:
+		M()->rollback();
+		return false;
+	endif;
+
+}
+
+function deleteKtv($ids=0,$map=array()){//删除新闻及与他的子级
+	$map['id']  = array('in',$ids);
+	$path = trim(ROOT_PATH, DS) . config('pic.upload');
+	$data = M('ktv')->where($map)->select();
+	M()->startTrans();
+	if(M('ktv')->delete($ids)):
 		foreach ($data as $key => $row) {
 			AddLog("删除news内容:".$row['title'],$_SESSION['Admin_UserName']);
 			isset($row['img1']) ? @unlink($path.$row['img1']) : '';

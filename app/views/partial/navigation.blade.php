@@ -54,7 +54,7 @@
     <h1 class="new-logo pull-left">
       <a href="/" title="夜都汇">夜都汇</a>
     </h1>
-    <h6 style="font-weight: 100;position: absolute;top: 180px;">西安夜都汇网络科技有限公司</h6>
+    <h6 style="font-weight: 100;position: absolute;top: 180px;">{{$system_sitename}}</h6>
     <div class="search-box">
       <form>
         <input type="text" class="search-box-input search-keyword-input"
@@ -104,7 +104,7 @@ var city="xian4";
 
     <div class="nav" >
       <a href="/" class="nav-item active" >首页</a>
-      <a href="/xian4" class="nav-item">商务KTV会所</a>
+      <a href="/ktv" class="nav-item">{{v_news_cats(2, 'catname')}}</a>
     </div>
   </div>
 </div>

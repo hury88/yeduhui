@@ -44,11 +44,40 @@ class View
 		return $view;
 	}
 
+	public static function ktv($view, $tabalModel)
+	{
+		$id = $view->id;
+
+		$controller = 'ktv';
+
+		$tabalModel->where("`id`=$id")->setInc('hits');
+
+		$pid = $view->pid;
+		$ty = $view->ty;
+		$view->time = date('Y-m-d', $view->sendtime);
+		$view->entime = date('F d, Y', $view->sendtime);
+		$view->img1 = src($view->img1);
+		$view->content = htmlspecialchars_decode($view->content);
+		$view->content2 = $view->content2 ? htmlspecialchars_decode($view->content2) : config('other.nocontent');
+		$view->back = m_url($pid, $ty);
+
+		#######上一篇下一篇 开始
+		$prevOneNext = $tabalModel->field('id,title')->where("`pid`=$pid AND `ty`=$ty AND isstate=1")->order(config('order.order'))->select();
+		$view->PreviousNext($prevOneNext,$id,$controller);
+		unset($prevOneNext);
+		#######上一篇下一篇 结束
+
+        list($view->xiao_p1, $view->xiao_p2) = explode('|', $view->xiaobao);
+        list($view->zhong_p1, $view->zhong_p2) = explode('|', $view->zhongbao);
+        list($view->da_p1, $view->da_p2) = explode('|', $view->dabao);
+		return $view;
+	}
+
 	public static function dispatch($id, $controller)
 	{
 		switch ($controller) {
-			case 'goods':
-				$table = 'goods';
+			case 'ktv':
+				$table = 'ktv';
 				break;
 			default:
 				$table = 'news';

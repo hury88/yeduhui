@@ -167,11 +167,11 @@ class Page{
         $now_cool_page_ceil = ceil($now_cool_page);
         $this->lastSuffix && $this->config['last'] = $this->totalPages;
 
-        $tpl_up_page = '<a href="%s">上一页</a>';//上一页
-        $tpl_on_page = '<a href="%s" class="pager-now">%s</a>';//当前页
-        $tpl_down_page = '<a href="%s">下一页</a>';//下一页
+        $tpl_up_page = '<a href="%s" class="page-prev">上一页</a>';//上一页
+        $tpl_on_page = '<a href="%s" class="page-cur">%s</a>';//当前页
+        $tpl_down_page = '<a href="%s" class="page-next">下一页</a>';//下一页
 
-        $tpl_link_page = '<a href="%s">%s</a>';//数字连接
+        $tpl_link_page = '<a href="%s" class="page-num">%s</a>';//数字连接
 
         $tpl_the_first = '<a href="%s">首页</a>';//第一页
         $tpl_the_end = '<a href="%s">尾页</a>';//最后一页
